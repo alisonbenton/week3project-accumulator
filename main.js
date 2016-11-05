@@ -213,6 +213,8 @@ If you pass it ["quick", "brown", "fox"] then it should return { "quick": 0, "br
 
 // THIS IS JUST RETURNING THE LAST ITEM IN THE OBJECT. MUST REVIEW OBJECTS
 
+
+
 function flipArray (array){
   var object = new Object ();
   for (i = 0; i < array.length; i++){
@@ -783,7 +785,7 @@ console.log(arrayOfNumbers(3));
 
 /*
 ----------------------------------------
-CHALLENGE 24
+CHALLENGE 24 - WORKS
 ----------------------------------------
 
 Write a function named evenOdd that takes a number and returns an object with the numbers and whether they are even or odd
@@ -793,19 +795,28 @@ Example:
 If you pass 1,4 it should return {"1": "odd", "2": "even", "3": "odd", "4": "even"}
 */
 
-function evenOdd(number){
-  
-}
+function evenOdd(num1, num2){
+  object = new Object();
+  for(var i = num1; i <=num2; i++){
+    if(i%2 == 0){
+      object[i] = "even";
+  }else{
+      object[i] = "odd";
+      };
+  };
+  return object;
+};
+
+console.log(evenOdd(1,4));
 
 
 
-
-
+//WORKS
 
 
 /*
 ----------------------------------------
-CHALLENGE 25
+CHALLENGE 25 - WORKS
 ----------------------------------------
 
 Write a function named growingKeys that takes a number and a string and returns an object where the keys are that string, repeated one more each time
@@ -815,9 +826,19 @@ Example:
 If you pass 2,"d" it should return {"d": true, "dd": true}
 */
 
+function growingKeys(number, string){
+  object = new Object();
+  var creator = [];
+  for(var i = 0; i <number; i++){
+    creator.push(string);
+    object[creator.join("")] = "true";
+  };
+return object;
+};
 
+console.log(growingKeys(2, "d"));
 
-
+//works
 
 
 
@@ -837,9 +858,18 @@ If you pass [1,1], 1 it should return true
 If you pass [1,2], 1 it should return false
 */
 
+function every(array, value){
+  for (var i = 0; i < array.length; i++){
+    if(array[i].value !== value.value){  //i think the error is here, but with or without .value it doesnt work
+      return false;
+    } else{
+      return true;
+    };
+  };
+};
 
-
-
+console.log(every([1,1], 1));
+console.log(every([1,2], 1));
 
 
 
@@ -857,8 +887,17 @@ If you pass [1,2], 1 it should return true
 If you pass [3,2], 1 it should return false
 */
 
-
-
+function some (array, value){
+  for (var i = 0; i < array.length; i++){
+    if((array[i]) = value){
+      return true;
+    }else{
+      return false;
+    };
+  };
+};
+console.log(some([1,2], 1));
+console.log(some([3,2], 1));
 
 
 
@@ -869,18 +908,22 @@ If you pass [3,2], 1 it should return false
 CHALLENGE 28
 ----------------------------------------
 
-Write a function named some that takes an array and returns a string with the elements joined by commas, with a trailing 'and'
+Write a function named some(changed to join) that takes an array and returns a string with the elements joined by commas, with a trailing 'and'
 
 Example:
 
 If you pass ["Sue", "Will"] it should return "Sue and Will"
 If you pass ["Sue", "Will", "Rachel"] it should return "Sue, Will and Rachel"
 */
-
-
-
-
-
+//
+// function join (array){
+//   var newarray = []
+//   for (i = array.length-1; i>=0; i--){
+//
+//   };
+//
+// console.log(join(["Sue", "Will"]));
+// console.log(join(["Sue", "Will", "Rachel"]));
 
 
 
@@ -902,7 +945,15 @@ If you pass ["Sue", "Will"] it should return "SW"
 If you pass ["Java", Script", "Object", "Notation"] it should return "JSON"
 */
 
-
+// function acronym(array){
+//   var newarray = [];
+//   for (i = 0; i <array.length; i++){
+//     newarray.push(array[i][0]);
+//   };
+//   return newarray;
+// };
+// //
+// console.log(acronym(["Sue", "Will"]));
 
 
 
@@ -911,7 +962,7 @@ If you pass ["Java", Script", "Object", "Notation"] it should return "JSON"
 
 /*
 ----------------------------------------
-CHALLENGE 30
+CHALLENGE 30 - works
 ----------------------------------------
 
 Write a function named min that takes an array and returns minimum value of the array
@@ -921,10 +972,20 @@ Example:
 If you pass [0,-3,2,5] it should return -3
 */
 
+function min(array){
+  let temp = array[0];
+  for (i = 0; i < array.length; i++){
+    if(array[i]<temp){
+      temp = array[i];
+    };
+  };
+  return temp;
+};
+
+console.log(min([0,-3,2,5]));
 
 
-
-
+// works
 
 
 
@@ -936,7 +997,7 @@ If you pass [0,-3,2,5] it should return -3
 CHALLENGE 31
 ----------------------------------------
 
-Write a function named index that takes an array of objects, and a property name, and returns an object where the keys are the specified property
+Write a function named index that takes an array of objects, and a property name (?????), and returns an object where the keys are the specified property
 
 Example:
 
@@ -963,9 +1024,17 @@ Example:
 If you pass {id: 1, name: "Joe"} it should return {1: "id", Joe: "name"}
 */
 
-
-
-
+// function invert (object){
+//   newobject = new Object();
+//   var oldkeys = Object.keys(object);
+//   var oldvalues = Object.values(object); //console is saying Object.values isn't a function
+//   for ( i = 0; i < object.length; i++){
+//     newobject[oldvalues[i]]=oldkeys[i];
+//   };
+//   return newobject;
+// }
+//
+// console.log(invert({id: 1, name: "Joe"}));
 
 
 
@@ -985,7 +1054,10 @@ Example:
 If you pass {"contract": "foo"}, "Fred" it should return {"contract-signed": "foo - Fred"}
 */
 
-
+function addSignature(object, name){
+  object = new Object();
+  var firstkey = object
+}
 
 
 
@@ -1010,7 +1082,6 @@ If you pass {name: "Will", age: 24} it should return ["name - will", "age - 24"]
 
 
 
-
 /*
 ----------------------------------------
 CHALLENGE 35
@@ -1023,8 +1094,11 @@ Example:
 If you pass {a: 1, b: 2} it should return 3
 */
 
+var object = {a: 1, b: 2}
 
+var oldvalues = Object.values(object);
 
+console.log(oldvalues);
 
 
 
