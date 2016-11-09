@@ -117,7 +117,7 @@ function doubleLetters (string){
     newstring.push(string[i]);
     newstring.push(string[i]);
   }
-  return newstring;
+  return newstring.join("");
 }
 
 var teststring = "abc";
@@ -242,6 +242,9 @@ If you pass it [[2014, "Horse"], [2015, "Sheep"]] then it should return { 2014: 
 
 function arraysToObject(array1){
   var object = new Object();
+  if(array1.length ==0){
+    return object;
+  }
   let a = array1[0][0];
   let b = array1[0][1];
   let c = array1[1][0];
@@ -304,6 +307,9 @@ If you pass it "heehaw" then it should return false because "hee" doesn't equal 
 */
 
 function repeats(string){
+  if(string.length ==0){
+    return true;
+  }
   if(string.length%2 !==0){  //!== means does not equal
     return false;
   }
@@ -379,9 +385,12 @@ If you pass "aba" it should return false
 */
 
 function allEqual(string){
+  if(string.length == 0){
+    return true;
+  }
   for (var i = 1; i < string.length; i++){
     var firstterm = string[0];
-    if((string[i])!=firstterm){
+    if((string[i])!==firstterm){
       return false;
     } else {
       return true;
@@ -540,6 +549,7 @@ function getCodePoints(string){
   for(i = 0; i < string.length; i++){
     returnarray.push(string.codePointAt(i));
   };
+return returnarray;
 };
 
 console.log(getCodePoints("Hello"));
@@ -633,6 +643,22 @@ If you pass "Hello" it should return {"H": 1, "e": 1, "l": 2, "o": 1}
 //DOES NOT WORK
 
 
+function letterCount(string){
+  var countobj = {};
+  for (var i = 0; i < string.length; i++){
+    let letter = string[i];
+    let count = 0
+    for (var i = 0; i < string.length; i++){
+      if((string[i]) = letter){
+        count++;
+      };
+    };
+    countobj[letter] = count;
+  };
+return countobj;
+};
+
+
 
 /*
 ----------------------------------------
@@ -654,7 +680,7 @@ function threeOdds(num1, num2){
       accumulator ++;
     };
   };
-  if (accumulator == 3){
+  if (accumulator >= 3){
     return true;
   }else{
     return false;
@@ -685,15 +711,15 @@ If you pass "a", 3, "*" it should return "**a" - that is, a string of length 3, 
 function leftPad(string, length, fill){
   var newarray = [];
   var numofchar = string.length;
-  // if (string.length == length){
-  //   return string;
-  // }else
+  if (string.length >= length){
+    return string;
+  }else
   for (i = 0; i<string.length; i++){
-    newarray.unshift(string[i]);
+    newarray.push(string[i]);
   } for (i = string.length; i < length; i++){
     newarray.unshift(fill);
   };
-  return newarray;
+  return newarray.join("");
 }
 
 console.log((leftPad("a", 3, "*")).join(""));
@@ -719,8 +745,8 @@ function createString (letter, number){
   for (i = 0; i < number; i++){
     newarray.push(letter);
   };
-  return newarray;
-}
+  return newarray.join("");
+};
 
 console.log((createString("a",3)).join(""));
 
@@ -797,6 +823,9 @@ If you pass 1,4 it should return {"1": "odd", "2": "even", "3": "odd", "4": "eve
 
 function evenOdd(num1, num2){
   object = new Object();
+  if((num1==0)&&(num2==0)){
+    return object;
+  }
   for(var i = num1; i <=num2; i++){
     if(i%2 == 0){
       object[i] = "even";
@@ -831,7 +860,7 @@ function growingKeys(number, string){
   var creator = [];
   for(var i = 0; i <number; i++){
     creator.push(string);
-    object[creator.join("")] = "true";
+    object[creator.join("")] = true;
   };
 return object;
 };
@@ -859,6 +888,9 @@ If you pass [1,2], 1 it should return false
 */
 
 function every(array, value){
+  if (array.length ==0){
+    return true;
+  };
   for (var i = 0; i < array.length; i++){
     if(array[i].value !== value.value){  //i think the error is here, but with or without .value it doesnt work
       return false;
@@ -888,11 +920,14 @@ If you pass [3,2], 1 it should return false
 */
 
 function some (array, value){
+  if (array.length == 0){
+    return false;
+  }
   for (var i = 0; i < array.length; i++){
-    if((array[i]) = value){
-      return true;
-    }else{
+    if((array[i]) != value){
       return false;
+    }else{
+      return true;
     };
   };
 };
@@ -908,7 +943,7 @@ console.log(some([3,2], 1));
 CHALLENGE 28
 ----------------------------------------
 
-Write a function named some(changed to join) that takes an array and returns a string with the elements joined by commas, with a trailing 'and'
+Write a function named some(changed to toSentence) that takes an array and returns a string with the elements joined by commas, with a trailing 'and'
 
 Example:
 
@@ -916,17 +951,34 @@ If you pass ["Sue", "Will"] it should return "Sue and Will"
 If you pass ["Sue", "Will", "Rachel"] it should return "Sue, Will and Rachel"
 */
 //
-// function join (array){
+// function toSentence (array){
 //   var newarray = []
-//   for (i = array.length-1; i>=0; i--){
-//
+//   if (array.length == 0){
+//     return "";
+//   }
+//   newarray.push(array.pop);
+//   newarray.unshift(" and ");
+//   newarray.unshift(array.pop);
+//   for (i = array.length-3; i>=0; i--){
+//     newarray.push(array.pop+",");
 //   };
+//   return newarray.join("");
+// };
 //
 // console.log(join(["Sue", "Will"]));
 // console.log(join(["Sue", "Will", "Rachel"]));
 
-
-
+function toSentence(array){
+  var names = "";
+  if(array.length == 0){
+    return names;
+  };
+  for (var i = 0; i < array.length-2; i++){
+    names+=array[i]+", "
+  };
+  names+=array[array.length-2]+" and " +array[array.length-1]
+  return names;
+};
 
 
 
@@ -945,16 +997,18 @@ If you pass ["Sue", "Will"] it should return "SW"
 If you pass ["Java", Script", "Object", "Notation"] it should return "JSON"
 */
 
-// function acronym(array){
-//   var newarray = [];
-//   for (i = 0; i <array.length; i++){
-//     newarray.push(array[i][0]);
-//   };
-//   return newarray;
-// };
+function acronym(array){
+  if (array.length == 0){
+    return "";
+  }
+  var newarray = [];
+  for (i = 0; i <array.length; i++){
+    newarray.push(array[i][0]);
+  };
+  return newarray.join("");
+};
 // //
 // console.log(acronym(["Sue", "Will"]));
-
 
 
 
@@ -1036,6 +1090,15 @@ If you pass {id: 1, name: "Joe"} it should return {1: "id", Joe: "name"}
 //
 // console.log(invert({id: 1, name: "Joe"}));
 
+// function invert(object){
+//   var newobject = {};
+//   var keys = Object.keys(object);
+//   var values = Object.values(object);
+//   for (var i = 0; i < keys.length; i++){
+//     newobject[values[i]] = keys[i];
+//   };
+//   return newobject;
+// };
 
 
 
@@ -1056,7 +1119,9 @@ If you pass {"contract": "foo"}, "Fred" it should return {"contract-signed": "fo
 
 function addSignature(object, name){
   object = new Object();
-  var firstkey = object
+  var keys = Object.keys(object);
+  var values = Object.values(object);
+  firstkey
 }
 
 
@@ -1094,12 +1159,17 @@ Example:
 If you pass {a: 1, b: 2} it should return 3
 */
 
-var object = {a: 1, b: 2}
-
-var oldvalues = Object.values(object);
-
-console.log(oldvalues);
-
+function sumValues(object){
+  if(Object.keys(object) == []){
+    return [];
+  };
+  var sum = 0;
+  var oldvalues = Object.values(object);
+  for (i = 0; i <oldvalues.length; i++){
+    sum+=oldvalues[i].value;
+  };
+  return sum;
+};
 
 
 
